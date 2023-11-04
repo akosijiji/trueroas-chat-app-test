@@ -32,6 +32,8 @@ import {
     Stack,
   } from '@mui/material';
 
+import { redirect } from 'next/navigation';
+
 function Page() {
     const { user } = useAuthContext();
     const router = useRouter();
@@ -48,7 +50,7 @@ function Page() {
     const database = getDatabase();
 
     useEffect(() => {
-      if (user == null) router.push(SIGNIN_ROUTE)
+      if (user == null) return redirect(SIGNIN_ROUTE);
     }, [user])
 
     useEffect(() => {

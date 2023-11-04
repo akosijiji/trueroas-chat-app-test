@@ -18,6 +18,7 @@ function Page() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isClicked, setIsClicked] = useState(false);
 
     const database = getDatabase();
 
@@ -25,10 +26,12 @@ function Page() {
         event.preventDefault();
         setError(null); // Reset error message
         setIsLoading(true); // Set loading to true when the request starts
+        if(!isClicked) setIsClicked(true);
 
         // Check if name is not empty
         if (name === '') {
             setIsLoading(false);
+            setIsClicked(false);
             return setError('Error: name is empty');
         }
 
@@ -36,6 +39,7 @@ function Page() {
         if (error) {
             setError('Error: ' + error?.code);
             setIsLoading(false);
+            setIsClicked(false);
             return console.error(error);
         }
         try {
@@ -50,6 +54,7 @@ function Page() {
             console.error(error);
         } finally {
             setIsLoading(false);
+            setIsClicked(false);
         }
     };
 
@@ -148,7 +153,7 @@ function Page() {
                                            <Container sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems:'center' }} ><CircularProgress/></Container>
                                         )}
                                     
-                                    <Button variant="contained" type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>Sign up</Button>
+                                    <Button variant="contained" type="submit" fullWidth sx={{ mt: 3, mb: 2 }} disabled={isClicked}>Sign up</Button>
                                     <Grid container>
                                         <Grid item>
                                             <Link href={SIGNIN_ROUTE} variant="body2">

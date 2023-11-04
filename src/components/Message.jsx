@@ -4,7 +4,7 @@ import {
     Typography,
     Paper,
 } from '@mui/material';
-
+import moment from 'moment';
 
 function Message ({ message, user }) {
     const isRecipient = message?.sender !== user?.email ? true : false;
@@ -23,7 +23,6 @@ function Message ({ message, user }) {
             alignItems: 'center',
           }}
         >
-          
           <Avatar sx={{ bgcolor: isRecipient ? '#e5e5ea' : '#1289fe', mr: 1, color: isRecipient ? '#000' : '#fff' }}>
             { message?.sender?.charAt(0).toUpperCase() }
           </Avatar>
@@ -33,7 +32,7 @@ function Message ({ message, user }) {
               backgroundColor: isRecipient ? '#e5e5ea' : '#1289fe',
             }}>
             <Typography variant='body1' color={ isRecipient ? '#000' : '#fff'}>{message.message}</Typography>
-            <Typography variant='body1' color={ isRecipient ? '#000' : '#fff'}>{message.timestamp}</Typography>
+            <Typography variant='caption' color={ isRecipient ? '#000' : '#fff'}>{moment(message.timestamp).format('DD/MM/YYYY HH:mm')}</Typography>
           </Paper>
         </Box>
       </Box>

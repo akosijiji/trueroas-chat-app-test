@@ -32,7 +32,7 @@ import {
     Stack,
   } from '@mui/material';
 
-function Page({ params }) {
+function Page() {
     const { user } = useAuthContext();
     const router = useRouter();
     const [messages, setMessages] = useState([]);
@@ -41,10 +41,8 @@ function Page({ params }) {
     const [openModal, setOpenModal] = useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
-    const recipient = params.slug;
 
     console.log('user ', user);
-    console.log('params ', params.slug);
 
     const auth = getAuth();
     const database = getDatabase();
@@ -167,22 +165,20 @@ function Page({ params }) {
               }}
             >
               {/* Message Component */}
-              <Box sx={{ flexGrow: 1, overflow: 'auto', p: 2 }}>
+              <Box sx={{ flexGrow: 1, overflow: 'auto', pt: 10, pb: 10, pr: 2, pl: 2 }}>
                 {messages && messages.length > 0 ? messages?.map((message) => (
-                  <Message key={message.id} message={message} user={user} />
+                  <Message key={message.id} message={message} user={user}  />
                 )) :
                   <label>No messages yet</label>
                 }
               </Box>
               {/* TextInput Component */}
-              <Paper 
+              <Paper  
                 sx={{
-                  marginTop: 'calc(10% + 60px)',
-                  width: '100%',
                   position: 'fixed',
                   bottom: 0,
                   width: '100%'
-                }} component="footer" square variant="outlined">
+                }} square variant='outlined'>
               <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
                 <Grid container spacing={2}>
                   <Grid item xs={10}>
@@ -229,8 +225,6 @@ function Page({ params }) {
               title='Warning'
               content='Are you sure you want to log out?'
             />
-
-            {/* <Footer /> */}
           </div>
           
         );
